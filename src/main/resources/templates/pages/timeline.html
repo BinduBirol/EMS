@@ -1,0 +1,63 @@
+<!-- Content Wrapper. Contains page content -->
+  <div  class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Timeline</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Timeline</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <!-- Timelime example  -->
+        <div class="row">
+          <div class="col-md-12">
+            <!-- The time line -->
+            <div class="timeline">
+              <!-- timeline time label 
+              <div class="time-label">
+                <span class="bg-red">10 Feb. 2014</span>
+              </div>
+			 /.timeline-label -->             
+              
+              
+              
+              
+              <!-- timeline item -->
+              <div th:each="timeline,iterator : ${timeline}">
+             
+                <i th:classappend="${timeline.activity_icon}" class="fa"></i>
+                <div class="timeline-item">
+                  <span class="time"><i class="fas fa-clock"></i> [[${timeline.activity_date}]]</span>
+                  <h3 class="timeline-header" > <a th:href="${timeline.activity_link}" th:text="${timeline.activity_username}"> </a>: <b th:text="${timeline.activity_title}"></b> </h3>
+
+                  <div class="timeline-body">
+                    [[${timeline.activity_desc}]]
+                  </div>                  
+                </div>
+              </div>
+             
+             
+            </div>
+          </div>
+          <!-- /.col -->
+        </div>
+      </div>
+      <!-- /.timeline -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

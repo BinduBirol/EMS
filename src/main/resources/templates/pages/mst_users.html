@@ -1,0 +1,88 @@
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>User Table</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Homes</a></li>
+						<li class="breadcrumb-item active">mst_users</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+
+					<!-- /.card -->
+
+					<div class="card">
+						<div class="card-header">
+							<h3 class="card-title">All Users Info</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>User ID</th>
+										<th>User Name</th>
+										<th>Full Name</th>
+										<th>Role</th>
+										<th>Email</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="user : ${page}">
+										<td th:text="${user.id}"></td>
+										<td th:text="${user.username}"></td>
+										<td th:text="${user.username}"></td>
+										<td th:each="role : ${user.roles}" ><span th:text="${role.name}"></span></td>
+										<td><a th:text='${user.email}' href="th:text='${user.email}'"></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					
+	<!-- DataTables  & Plugins -->
+	<script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/jszip/jszip.min.js}"></script>
+	<script th:src="@{/assets/plugins/pdfmake/pdfmake.min.js}"></script>
+	<script th:src="@{/assets/plugins/pdfmake/vfs_fonts.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+	
+	<!-- Page specific script -->
+
+<script type="text/javascript">
+$(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');    
+  });
+</script>

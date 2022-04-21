@@ -1,0 +1,261 @@
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>Employee Work Schedule</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Homes</a></li>
+						<li class="breadcrumb-item active">employee_work_schedule</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+
+					<!-- /.card -->
+
+					<div class="card">
+						<div class="card-header alert-warning">
+							<i class="fas fa-info-circle"></i> Click on employee name see profile
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<table id="emp_work_sh_table" class="table table-bordered table-hover table-striped">
+								<thead>
+									<tr>
+										<th class="align-middle">Sl</th>
+										<th class="align-middle">Image</th>
+										<th class="align-middle">Name</th>
+										<th class="align-middle">Designation</th>										
+										<th class="align-middle">Phone</th>										
+										<th class="align-middle">Contact Remains</th>
+										<th class="align-middle">Set work sh</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr  th:each="user,iterator : ${emp_list}">
+										<td class="align-middle" th:text="${iterator.index+1}"></td>
+										<td class="align-middle" ><img style="width:70px;height:70px; " class="img-circle elevation-2" th:src="*{'data:image/jpeg;base64,'+{user.emp_image_encoded}}" /> </td>
+										<td class="align-middle" ><a href="#" class="" onclick="callAjax(this)" th:id='${user.userid}'>[[${user.first_name}]] [[${user.last_name}]]</a></td>										
+										<td class="align-middle" th:text="${user.designation}"></td>										
+										<td class="align-middle" id="emp_id" th:text="${user.phone}"></td>										
+										<td th:class="${user.contact_status_str}" th:text="${user.contact_remaining_period}"></td>
+										<td class="align-middle"><a class="btn btn-app bg-success" th:id='${user.userid}' onclick="setModalData(this)" data-toggle="modal" data-target="#myModal"> 
+											<span class="badge bg-purple">[[${user.userid}]]</span> <i class="fas fa-clock"></i>
+												Set Schedule
+										</a></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					
+		</div></div></div></section></div>			
+				
+
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+      <form action="">
+        <!-- Modal Header -->
+        <div class="modal-header">          
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+			
+				<div class="card">
+	              <div id="modal-bg" class="card-header bg-success">
+	              
+	              
+	                
+	              
+	              
+	              
+	               <div class="form-group">
+	               			<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+		                      <input type="checkbox" id="availablity" value="1"  class="custom-control-input" >
+		                      <label class="custom-control-label" for="availablity">Attend</label>
+		                    </div>
+		                    <p><i class="fas fa-calendar-week"></i> <span id="week_no"></span></p>
+	               
+	               
+                   
+                    
+                  </div>
+	              </div>
+	              <div class="card-body">
+	              	<div class="row">	                 
+	                  <div class="col-6">
+	                  <label>From Date</label>
+	                    <input id="from_date" type="date" class="form-control text-center" >
+	                  </div>
+	                  <div class="col-6">
+	                  <label >To Date</label>
+	                    <input id="to_date" type="date" class="form-control text-center" >
+	                  </div>
+	                </div>
+	                
+	                <hr>
+	              
+	                <div class="row">	                 
+	                  <div class="col-4">
+	                  <label>Work Start</label>
+	                    <input type="time" value="08:00" class="form-control text-center absent" >
+	                  </div>
+	                  <div class="col-4">
+	                  <label>Lunch Time (minute)</label>
+	                    <input value=45 type="number" class="form-control text-center absent" >
+	                  </div>
+	                  <div class="col-4">
+	                  <label>Work End</label>
+	                    <input  value="17:00" type="time" class="form-control text-center absent">
+	                  </div>
+	                </div>
+	                <hr>
+	                	<div class="row">	                 
+		                  <div class="col-12">
+		                  <label>Description</label>
+		                    <input id="desc" type="text" class="form-control" >
+		                  </div>		                  
+		                </div>
+	                
+	              </div>
+	              <!-- /.card-body -->
+	            </div>
+			
+			       
+
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success" data-dismiss="modal">Submit</button>
+        </div>
+        </form>   
+      </div>
+    </div>
+  </div>
+  
+
+					
+	<!-- DataTables  & Plugins -->
+	<script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/jszip/jszip.min.js}"></script>
+	<script th:src="@{/assets/plugins/pdfmake/pdfmake.min.js}"></script>
+	<script th:src="@{/assets/plugins/pdfmake/vfs_fonts.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+	
+	<!-- Page specific script -->
+
+<script type="text/javascript">
+$('#availablity').prop('checked', true);
+
+
+function setModalData(btn) {
+	let today = new Date().toISOString().substr(0, 10);
+	document.querySelector("#from_date").value = today;
+	document.querySelector("#to_date").value = today;
+	
+	var currentdate = new Date();
+	var oneJan = new Date(currentdate.getFullYear(),0,1);
+	var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
+	var result = Math.ceil(( currentdate.getDay() + 1 + numberOfDays) / 7);		
+	$("#week_no").html("  "+result);
+}
+
+
+	function callAjax(btn) {
+		$navLink = "/";		
+		if(btn.id=="add_employee"){
+			$navLink="add_employee";
+		}else{
+			$navLink = 'employee_profile&emp_id='+btn.id;
+		}		
+					
+		$.ajax({
+			url : 'getNavPage?navid=' + $navLink,
+			type : 'GET',
+			success : function(data) {
+				$('#page_content_ajax').html(data);
+				document.title = btn.id;
+				$(".nav-link").removeClass("active");
+				$("#"+btn.id).addClass("active");
+				$("#"+btn.id ).closest( ".nav-toogler" ).addClass('active');
+			}
+		});
+
+	}
+
+	$(function() {
+		$("#emp_work_sh_table").DataTable({
+			"responsive" : true,
+			"lengthChange" : false,
+			"autoWidth" : false,
+			"buttons" : [ "copy", "csv", "excel", "pdf" ]
+		}).buttons().container().appendTo('#emp_work_sh_table_wrapper .col-md-6:eq(0)');
+	});
+	
+	$('#availablity').on('change', function() {
+		if ($(this).prop('checked') === true) {
+			$("#emp_name").css("color", "Green");
+			$('.absent').prop('required', true);
+			$('.absent').prop('disabled', false);			
+			$("#attnd").val(1);	
+			$("#modal-bg").removeClass("bg-danger");
+			$("#modal-bg").addClass("bg-success");
+			$(".custom-control-label").html("Attend");
+			
+			
+		} else {
+			// $('#attendance').html("Absent");
+			$("#emp_name").css("color", "red");
+			$(".absent").removeAttr("required");
+			$('.absent').prop('disabled', true);			
+			$("#attnd").val(0);
+			$("#modal-bg").removeClass("bg-success");
+			$("#modal-bg").addClass("bg-danger");
+			$(".custom-control-label").html("Absent");
+		}
+
+	});
+
+	$('#from_date').on('change', function() {
+		$("#to_date").val($("#from_date").val());
+		
+		var currentdate = new Date($("#from_date").val());
+		var oneJan = new Date(currentdate.getFullYear(),0,1);
+		var numberOfDays = Math.floor((currentdate - oneJan) / (24 * 60 * 60 * 1000));
+		var result =Math.ceil(( currentdate.getDay() + 1 + numberOfDays) / 7);		
+		$("#week_no").html("  "+result);
+
+	});
+</script>

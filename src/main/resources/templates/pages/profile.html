@@ -1,0 +1,686 @@
+<style>
+	.borderless {
+    border: none !important;
+    border-color: transparent !important;
+}
+
+</style>
+
+
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>Profile</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item active">profile</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+
+	<!-- Main content -->
+	<form id="edit_form" action="emp_profile_add_edit_do" method="post" enctype="multipart/form-data">
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-3">
+
+					<!-- Profile Image -->
+					<div class="card card-primary card-outline">
+						<div class="card-body box-profile">
+							<div class="text-center">								
+									
+									<img th:src="*{'data:image/jpeg;base64,'+{me.emp_image_encoded}}"
+									class="profile-user-img img-fluid img-circle">
+									<input type="file" class="d-none" name="emp_image_m"/>
+							</div>
+
+							<h3 class="profile-username text-center">[[${me.first_name}]] [[${me.last_name}]]</h3>
+
+							<p class="text-muted text-center">
+							<select  disabled="disabled"
+											 class="text-center non-editable form-control" id="slct_role">
+											<option value="">Select Role</option>
+											<option th:selected="(${roles.id} == *{me.roleid})"
+												th:each="roles : ${roles}" th:value="${roles.id}"
+												th:text="${roles.description}"></option>
+							</select>
+										
+							<input name="roleid" type="hidden" th:value="${me.roleid}"/>	
+							<input  type="hidden" name="empid"	th:value="${me.empid}"/>							
+							<input name="userid" th:value="${me.userid}" type="hidden"/>
+							<input name="username" th:value="${me.username}" type="hidden"/>
+							<input type="hidden"/>
+							</p>
+
+							
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+
+					<!-- About Me Box -->
+					<div class="card card-primary">
+						<div class="card-header">
+							<h3 class="card-title">About Me</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<strong><i class="fas fa-file mr-1"></i> Documents</strong>
+
+							<ul>
+								<li><a th:href="|download/user?fileId=cv&userid=${me.userid}|">CV</a></li>
+								<li><a th:href="|download/user?fileId=crt&userid=${me.userid}|">Certificate</a></li>
+								<li><a th:href="|download/user?fileId=id&userid=${me.userid}|">ID Copy</a></li>
+							</ul>
+
+							<hr>
+
+							<strong></i>
+								Location</strong>
+
+							<p class="text-muted">[[${me.address_full}]]</p>
+
+							
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
+				<!-- /.col -->
+				<div class="col-md-9">
+					<div class="card">
+						<div class="card-header p-2">
+							<ul class="nav nav-pills">
+								<li class="nav-item"><a class="nav-link "
+									href="#info" data-toggle="tab">Info</a></li>
+								<li class="nav-item"><a class="nav-link" href="#inbox"
+									data-toggle="tab">Inbox</a></li>
+								<li class="nav-item"><a class="nav-link" href="#settings"
+									data-toggle="tab">Settings</a></li>
+									
+								
+							</ul>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<div class="tab-content">
+								<div class="active tab-pane" id="info">							
+									
+									
+									
+									
+
+
+<div class="card ">
+
+          <div class="card-header bg-primary">
+            <h3 class="card-title">My Personal Info</h3>
+
+            <div class="card-tools">
+             
+             
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            
+            <!-- /.row -->
+
+            
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>First Name</label>
+                 <input name="first_name" readonly="readonly" type="text" th:value="${me.first_name}" class="form-control non-editable"  required="required" placeholder="Enter First Name">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input name="last_name" readonly="readonly" type="text" th:value="${me.last_name}" class="form-control non-editable"  required="required" placeholder="Enter Last Name">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            
+            
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Private Email</label>
+                 <input name="private_email" th:value="${me.private_email}" type="email" class="form-control"  required="required" placeholder="Enter Private Email">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Closest Relative Full Description</label>
+                  <input name="closest_relative_full" th:value="${me.closest_relative_full}" type="text" class="form-control"  required="required" placeholder="Enter Closest Relative Full Description">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            
+             <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Full Address</label>
+                 <input name="address_full" th:value="${me.address_full}"   type="text" class="form-control"  required="required" placeholder="Enter Full Address">
+                </div>
+                <!-- /.form-group -->                
+              </div>
+              <!-- /.col -->
+               <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Evening Phone</label>
+                 <input name="phone_eve" type="tel" th:value="${me.phone_eve}" class="form-control"  required="required" placeholder="Enter Evening Phone">
+                </div>
+                <!-- /.form-group -->                
+              </div>
+              <!-- /.col -->
+            </div>
+            
+             <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Social Security Number</label>
+                 <input name="social_security_number" th:value="${me.social_security_number}" type="text" class="form-control"  required="required" placeholder="Enter Social Security Number">
+                </div>
+                <!-- /.form-group -->                
+              </div>
+              <!-- /.col -->
+               <div class="col-12 col-sm-6">
+                <div class="form-group">
+                 
+                 
+                </div>
+                <!-- /.form-group -->                
+              </div>
+              <!-- /.col -->
+            </div>
+            
+            
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <small >Include Street, State/Ort, Zipcode/Postkod in the relative and address information</small>
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header bg-info">
+            <h3 class="card-title">Employment Info</h3>
+
+            <div class="card-tools">
+            
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            
+            <!-- /.row -->
+
+            
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Designation</label>                 
+                <select 
+											disabled="disabled" class="form-control non-editable" id="slct_role">
+											<option value="">Select Role</option>
+											<option th:selected="(${roles.id} == *{me.designation})"
+												th:each="roles : ${roles}" th:value="${roles.id}"
+												th:text="${roles.description}"></option>
+										</select>
+					<input name="designation" type="hidden"  th:value="${me.designation}" />					
+                
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Workspace</label>
+                  <input name="workspace" readonly="readonly" th:value="${me.workspace}" type="text" class="form-control non-editable"  required="required" placeholder="Enter Workspace">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            
+            
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Work Email</label>
+                 <input readonly="readonly" name="email" type="email" th:value="${me.email}" class="form-control non-editable"  required="required" placeholder="Enter Work Email">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Nearest Chief</label>
+                  <input readonly="readonly" name="nearest_chief" th:value="${me.nearest_chief}" type="text" class="form-control non-editable"  required="required" placeholder="Enter Nearest Chief">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            
+             <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Employee Type</label>                 
+                 
+                 			<select disabled="disabled" name="employee_Type" required="required" class="form-control non-editable"
+									id="slct_type">
+									<option value="">Select Type</option>
+									<option th:selected="(${type.typeid} == *{me.employee_Type})"
+										th:each="type : ${type}" th:value="${type.typeid}"
+										th:text="${type.type_name}"></option>
+								</select>
+								<input name="employee_Type" th:value="${me.employee_Type}" type="hidden"/>
+
+
+							</div>
+                <!-- /.form-group -->                
+              </div>
+              <!-- /.col -->
+               <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Work Phone</label>
+                 <input readonly="readonly" name="phone" type="tel" th:value="${me.phone}" class="form-control non-editable"  required="required" placeholder="Enter Work Phone">
+                </div>
+                <!-- /.form-group -->                
+              </div>
+              <!-- /.col -->
+            </div>
+
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<div class="form-group">
+								<label>Contact Start</label>					
+								<div class="input-group" 
+									data-target-input="nearest">
+									<input readonly="readonly" name="contract_start" th:value="${me.contract_start}" required="required" type="date" class="form-control non-editable" />
+									
+								</div>
+								
+							</div>
+						</div>
+						
+						<div class="col-12 col-sm-6">
+							<div class="form-group">
+								<label>Contact End</label>
+								<div class="input-group" 
+									data-target-input="nearest">
+									<input readonly="readonly" name="contract_end" th:value="${me.contract_end}" required="required" type="date" class="form-control non-editable" />									
+								</div>
+							</div>
+						</div>
+
+					</div>
+					
+					
+
+
+				</div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            
+          </div>
+        </div>
+        
+        <div class="card">
+          <div class="card-header bg-warning">
+            <h3 class="card-title">My Account Info</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            
+            <!-- /.row -->
+
+            
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Bank Name</label>
+                 <input name="bank_name" th:value="${me.bank_name}" type="text" class="form-control" required="required" placeholder="Enter Bank Name">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Account Number</label>
+                  <input name="account_number" th:value="${me.account_number}" type="text" class="form-control"  required="required" placeholder="Enter Bank Account Number">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            
+            
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Clearing Number</label>
+                 <input name="clearing_number" th:value="${me.clearing_number}" type="text" class="form-control"  required="required" placeholder="Enter Clearing Number">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  <label>Table Tax</label>
+                  <input name="table_tax" th:value="${me.table_tax}" type="text" class="form-control"  required="required" placeholder="Enter Table Tax">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            
+            
+            
+            
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            
+          </div>
+        </div>
+        
+        <div class="row">
+		
+			 <!-- /.col -->
+              <div class="col-12 col-sm-3">
+                <div class="form-group">
+                  
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+              <div class="col-12 col-sm-6">
+                <div class="form-group">
+                  
+                 <input type="submit" class="form-control btn btn-success" value="Submit Modification">
+                </div>
+                <!-- /.form-group -->
+              </div>
+              
+              <div class="col-12 col-sm-3">
+                <div class="form-group">
+                  
+                 
+                </div>
+                <!-- /.form-group -->
+              </div>
+             
+            </div>
+
+					
+									
+									
+									
+									
+								</div>
+								<!-- /.tab-pane -->
+								<div class="tab-pane" id="inbox">
+									<!-- The timeline -->
+									<div class="timeline timeline-inverse">
+										<!-- timeline time label -->
+										<div class="time-label">
+											<span class="bg-danger"> 10 Feb. 2014 </span>
+										</div>
+										<!-- /.timeline-label -->
+										<!-- timeline item -->
+										<div>
+											<i class="fas fa-envelope bg-primary"></i>
+
+											<div class="timeline-item">
+												<span class="time"><i class="far fa-clock"></i> 12:05</span>
+
+												<h3 class="timeline-header">
+													<a href="#">Support Team</a> sent you an email
+												</h3>
+
+												<div class="timeline-body">Etsy doostang zoodles
+													disqus groupon greplin oooj voxy zoodles, weebly ning
+													heekya handango imeem plugg dopplr jibjab, movity jajah
+													plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
+													quora plaxo ideeli hulu weebly balihoo...</div>
+												<div class="timeline-footer">
+													<a href="#" class="btn btn-primary btn-sm">Read more</a> <a
+														href="#" class="btn btn-danger btn-sm">Delete</a>
+												</div>
+											</div>
+										</div>
+										<!-- END timeline item -->
+										<!-- timeline item -->
+										<div>
+											<i class="fas fa-user bg-info"></i>
+
+											<div class="timeline-item">
+												<span class="time"><i class="far fa-clock"></i> 5
+													mins ago</span>
+
+												<h3 class="timeline-header border-0">
+													<a href="#">Sarah Young</a> accepted your friend request
+												</h3>
+											</div>
+										</div>
+										<!-- END timeline item -->
+										<!-- timeline item -->
+										<div>
+											<i class="fas fa-comments bg-warning"></i>
+
+											<div class="timeline-item">
+												<span class="time"><i class="far fa-clock"></i> 27
+													mins ago</span>
+
+												<h3 class="timeline-header">
+													<a href="#">Jay White</a> commented on your post
+												</h3>
+
+												<div class="timeline-body">Take me to your leader!
+													Switzerland is small and neutral! We are more like Germany,
+													ambitious and misunderstood!</div>
+												<div class="timeline-footer">
+													<a href="#" class="btn btn-warning btn-flat btn-sm">View
+														comment</a>
+												</div>
+											</div>
+										</div>
+										<!-- END timeline item -->
+										<!-- timeline time label -->
+										<div class="time-label">
+											<span class="bg-success"> 3 Jan. 2014 </span>
+										</div>
+										<!-- /.timeline-label -->
+										<!-- timeline item -->
+										<div>
+											<i class="fas fa-camera bg-purple"></i>
+
+											<div class="timeline-item">
+												<span class="time"><i class="far fa-clock"></i> 2
+													days ago</span>
+
+												<h3 class="timeline-header">
+													<a href="#">Mina Lee</a> uploaded new photos
+												</h3>
+
+												<div class="timeline-body">
+													<img src="https://placehold.it/150x100" alt="..."> <img
+														src="https://placehold.it/150x100" alt="..."> <img
+														src="https://placehold.it/150x100" alt="..."> <img
+														src="https://placehold.it/150x100" alt="...">
+												</div>
+											</div>
+										</div>
+										<!-- END timeline item -->
+										<div>
+											<i class="far fa-clock bg-gray"></i>
+										</div>
+									</div>
+								</div>
+								<!-- /.tab-pane -->
+
+								<div class="tab-pane" id="settings">
+									<form class="form-horizontal">
+										<div class="form-group row">
+											<label for="inputName" class="col-sm-2 col-form-label">Name</label>
+											<div class="col-sm-10">
+												<input type="email" class="form-control" id="inputName"
+													placeholder="Name">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+											<div class="col-sm-10">
+												<input type="email" class="form-control" id="inputEmail"
+													placeholder="Email">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="inputName2"
+													placeholder="Name">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
+											<div class="col-sm-10">
+												<textarea class="form-control" id="inputExperience"
+													placeholder="Experience"></textarea>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="inputSkills"
+													placeholder="Skills">
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="offset-sm-2 col-sm-10">
+												<div class="checkbox">
+													<label> <input type="checkbox"> I agree to
+														the <a href="#">terms and conditions</a>
+													</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<div class="offset-sm-2 col-sm-10">
+												<button type="submit" class="btn btn-danger">Submit</button>
+											</div>
+										</div>
+									</form>
+								</div>
+								<!-- /.tab-pane -->
+							</div>
+							<!-- /.tab-content -->
+						</div>
+						<!-- /.card-body -->
+					</div>
+					<!-- /.card -->
+				</div>
+				<!-- /.col -->
+			</div>
+			<!-- /.row -->
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+	</form>
+	<!-- /.content -->
+</div>
+<script>
+
+$("#edit_form").submit(function(event)
+		{
+		    event.preventDefault();
+		    $.ajax({
+		        url: $(this).attr("action"),
+		        type: $(this).attr("method"),
+		        //dataType: "JSON",
+		        data: new FormData(this),
+		        processData: false,
+		        contentType: false,
+		        success: function (data, status)
+		        {
+		          	//alert(status);
+		        	ajaxResponse(data);
+		        	pagereload();
+		        },
+		        error: function (xhr, desc, err)
+		        {
+		        	ajaxResponse(err);
+		        	pagereload();
+
+		        }
+		    });        
+
+		});
+function ajaxResponse(data) {
+	
+	var Toast = Swal.mixin({
+	    toast: true,
+	    position: 'top-end',
+	    showConfirmButton: false,
+	    timer: 3000
+	  });
+	  
+	
+	    $(document).Toasts('create', {
+	      class: 'bg-info',
+	      title: 'Response',
+	      subtitle: 'Success',
+	      body: data
+	    })
+}
+
+function pagereload() {	
+	$id= $("#empid").val();
+	$navLink = 'profile';				
+	$.ajax({
+		url : 'getNavPage?navid=' + $navLink,
+		type : 'GET',
+		success : function(data) {
+			$('#page_content_ajax').html("");
+			$("#page_content_ajax").fadeOut();
+			$('#page_content_ajax').html(data);
+			$("#page_content_ajax").fadeIn("slow");
+			document.title = $navLink;			
+		}
+	});
+
+}
+
+</script>

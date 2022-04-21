@@ -1,0 +1,131 @@
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1>Employee Table</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Homes</a></li>
+						<li class="breadcrumb-item active">employee_list</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<!-- /.container-fluid -->
+	</section>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12">
+
+					<!-- /.card -->
+
+					<div class="card">
+						<div class="card-header">
+							<a href="#" id="add_employee" onclick="callAjax(this)" class="btn btn-outline-success btn-block"><i class="fas fa-user-plus"></i> Add Employee</a>
+							
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body">
+							<table id="example1" class="table table-bordered table-hover table-striped">
+								<thead>
+									<tr>
+										<th class="align-middle">Sl</th>
+										<th class="align-middle">Name</th>
+										<th class="align-middle">Designation</th>
+										<th class="align-middle">Email</th>
+										<th class="align-middle">Phone</th>
+										<th class="align-middle">Contact Start</th>
+										<th class="align-middle">Contact End</th>
+										<th class="align-middle">Contact Remains</th>
+										<th class="align-middle">Info</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:classappend="${user.status} ? text-dark : text-warning"  th:each="user,iterator : ${emp_list}">
+										<td class="align-middle" th:text="${iterator.index+1}"></td>
+										<td class="align-middle" >[[${user.first_name}]] [[${user.last_name}]]</td>										
+										<td class="align-middle" th:text="${user.designation}"></td>
+										<td class="align-middle"><a th:text='${user.email}' href="th:text='${user.email}'"></td>
+										<td class="align-middle" id="emp_id" th:text="${user.phone}"></td>
+										<td class="align-middle" th:text="${user.contract_start}"></td>
+										<td class="align-middle" th:text="${user.contract_end}"></td>
+										<td th:class="${user.contact_status_str}" th:text="${user.contact_remaining_period}"></td>
+										<td class="align-middle">
+											
+							                
+							                <a onclick="callAjax(this)" th:id='${user.empid}' class="btn text-primary">							                  
+							                  <i class="fas fa-edit"></i>
+							                </a>							               
+										</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+					
+	<!-- DataTables  & Plugins -->
+	<script th:src="@{/assets/plugins/datatables/jquery.dataTables.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/dataTables.buttons.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js}"></script>
+	<script th:src="@{/assets/plugins/jszip/jszip.min.js}"></script>
+	<script th:src="@{/assets/plugins/pdfmake/pdfmake.min.js}"></script>
+	<script th:src="@{/assets/plugins/pdfmake/vfs_fonts.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.html5.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.print.min.js}"></script>
+	<script th:src="@{/assets/plugins/datatables-buttons/js/buttons.colVis.min.js}"></script>
+	
+	<!-- Page specific script -->
+
+<script type="text/javascript">
+
+
+	function callAjax(btn) {
+		$navLink = "/";		
+		if(btn.id=="add_employee"){
+			$navLink="add_employee";
+		}else if(btn.className.indexOf('profile') > -1){
+			$navLink='profile&emp_id='+btn.id;
+		}else{
+			$navLink = 'emp_profile_edit&emp_id='+btn.id;
+		}		
+					
+		$.ajax({
+			url : 'getNavPage?navid=' + $navLink,
+			type : 'GET',
+			success : function(data) {
+				$('#page_content_ajax').html(data);
+				document.title = $navLink;
+				$(".nav-link").removeClass("active");
+				$("#"+btn.id).addClass("active");
+				$("#"+btn.id ).closest( ".nav-toogler" ).addClass('active');
+			}
+		});
+
+	}
+
+	$(function() {
+		$("#example1").DataTable({
+			"responsive" : true,
+			"lengthChange" : false,
+			"autoWidth" : false,
+			"buttons" : [ "copy", "csv", "excel", "pdf", "print", "colvis" ]
+		}).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+	});
+</script>

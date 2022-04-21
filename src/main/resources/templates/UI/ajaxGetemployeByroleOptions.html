@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<label>Select User</label>
+<select name="username" id="users_list" class="form-control input100" required="required">
+	<option value="">Select User</option>
+	<option  th:each="users : ${users}" th:value="${users.username}" >[[${users.first_name}]] [[${users.last_name}]]</option>
+</select>
+
+</body>
+</html>

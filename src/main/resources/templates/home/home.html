@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
+
+
+	<div th:fragment="admin" class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3 th:text="${r_user}"></h3>
+
+                <p>Registered User</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-user-plus"></i>
+              </div>
+              <a href="#" id="mst_users" onclick="getPageData(this.id)" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3 th:text="${t_user}"></h3>
+
+                <p>Total Employee</p>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+              <a href="#" id="employee_list" onclick="getPageData(this.id)" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3 th:text="${a_user}"></h3>
+
+                <p>Active Workers</p>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-clock"></i>
+              </div>
+              <a href="#"  id="employee_work_schedule" onclick="getPageData(this.id)" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3 th:text="${i_user}"></h3>
+
+                <p>Inactive Workers</p>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-ban"></i>
+              </div>
+              <a href="#" id="employee_list" onclick="getPageData(this.id)" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        
+        <div th:fragment="common" class="row">
+        
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-success">
+              <span class="info-box-icon"><i class="far fa-clock"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Availability</span>
+                <span class="info-box-number">10.00AM - 5.00PM</span>
+
+                <div class="progress">
+                 
+                  
+                </div>
+                
+                <span class="progress-description">
+                  Work Hard until you bleed.
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+        
+        	<div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-primary">
+              <span class="info-box-icon"><i class="far fa-calendar"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Contract Start</span>
+                <span class="info-box-number">[[${userdtl.contract_start}]]</span>           
+
+                <div class="progress">
+                  
+                </div>                
+                <span class="progress-description">
+                  Started Before [[${userdtl.contact_started_period}]]
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-warning">
+              <span class="info-box-icon"><i class="far fa-calendar"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Contract End</span>
+                <span class="info-box-number">[[${userdtl.contract_end}]]</span>
+
+                <div class="progress">
+                  <div class="progress-bar bg-success" th:style="|width:${userdtl.contract_end_persent}%|"></div>
+                  
+                </div>
+                
+                <span class="progress-description">
+                  Expires in [[${userdtl.contact_remaining_period}]]
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-dark">
+              <span class="info-box-icon"><i class="far fa-calendar"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Contract End</span>
+                <span class="info-box-number">[[${userdtl.contract_end}]]</span>
+
+                <div class="progress">
+                  <div class="progress-bar bg-success" th:style="|width:${userdtl.contract_end_persent}%|"></div>
+                  
+                </div>
+                
+                <span class="progress-description">
+                  Expires in [[${userdtl.contact_remaining_period}]]
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+        
+        
+        </div>
+        
+        
+        
+        
+        
+	
+	
+</html>
